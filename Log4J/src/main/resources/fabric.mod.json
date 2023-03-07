@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "hotbarfaildetector_log4j",
+  "version": "${version}",
+  "name": "HFD Hook (1.14.4 - 1.18.1)",
+  "description": "Library that detects failures related to saved hotbars",
+  "authors": ["videogamesm12"],
+  "license": "MIT",
+  "icon": "assets/hotbarfaildetector/icon.png",
+  "environment": "client",
+  "mixins": [
+    "hotbarfaildetector.log4j.mixin.json"
+  ],
+  "depends": {
+    "minecraft": "<=1.18.1"
+  }
+}

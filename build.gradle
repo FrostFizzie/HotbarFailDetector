@@ -1,0 +1,69 @@
+plugins {
+    id 'fabric-loom' version '1.0-SNAPSHOT'
+    id 'maven-publish'
+}
+
+group 'me.videogamesm12'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:1.17.1"
+    mappings "net.fabricmc:yarn:1.17.1+build.65:v2"
+
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.46.0+1.17"
+
+    subprojects.each {
+        include project("${it.name}:")
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+allprojects {
+    apply plugin: 'fabric-loom'
+    apply plugin: 'maven-publish'
+
+    tasks.withType(JavaCompile).configureEach {
+        it.options.release.set(8)
+    }
+
+    /*  I spent the past hour swearing like a sailor trying to figure out why the hell the Log4J module would see the
+        Mixin stuff, but SLF4J just couldn't see it. Apparently, this for whatever reason, fixes the issue. $#@%! */
+    dependencies {
+        modImplementation "net.fabricmc:fabric-loader:0.12.12"
+    }
+
+    processResources {
+        inputs.property "version", rootProject.version
+        filteringCharset "UTF-8"
+
+        filesMatching("fabric.mod.json") {
+            expand "version": rootProject.version
+        }
+    }
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        archiveClassifier.set("sources")
+        from sourceSets.main.allSource
+    }
+}
+
+subprojects {
+    setArchivesBaseName(String.format("HotbarFailDetector_%s", project.getName()))
+
+    version rootProject.version
+
+    dependencies {
+        implementation rootProject
+    }
+}
+
+subprojects.each {
+    remapJar.dependsOn("${it.path}:remapJar")
+}

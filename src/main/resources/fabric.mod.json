@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "hotbarfaildetector",
+  "version": "${version}",
+  "name": "HotbarFailDetector",
+  "description": "Library that detects failures related to saved hotbars",
+  "authors": ["videogamesm12"],
+  "license": "MIT",
+  "icon": "assets/hotbarfaildetector/icon.png",
+  "environment": "client",
+  "depends": {
+    "minecraft": "*"
+  }
+}

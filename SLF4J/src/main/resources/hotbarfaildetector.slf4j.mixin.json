@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.videogamesm12.hotbarfaildetector.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "HotbarStorageSLF4JMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
